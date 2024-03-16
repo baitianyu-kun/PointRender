@@ -23,21 +23,29 @@ def main():
         print(f"load the scene from: {cfgs.POINT.xml}")
         assert cfgs.POINT.xml.exists()
         scene = load_file(cfgs.POINT.xml.__str__())
+        
+        img = mitsuba.render(scene)
+        file = get_output_path(cfgs.POINT, 'jpg')
+        print(f"save to {file}")
+        mitsuba.util.write_bitmap(file, img)
     else:
-        from renderer.points_loader import load_points
-        from renderer.wrapper import build_scene
-        cfgs.POINT.file=Path(cfgs.POINT.file)
-        print(f"load the scene from: {cfgs.POINT.file}")
-        assert cfgs.POINT.file.exists()
-        points = load_points(cfgs.POINT.file)
+        for file in cfgs.POINT.files:
+            from renderer.points_loader import load_points
+            from renderer.wrapper import build_scene
+            file=Path(file)
+            print(f"load the scene from: {file}")
+            assert file.exists()
+            points = load_points(file)
 
-        print(f"point cloud shape: {points.shape}")
-        scene = build_scene(points, cfgs)
+            print(f"point cloud shape: {points.shape}")
+            scene = build_scene(points, cfgs)
 
-    img = mitsuba.render(scene)
-    file = get_output_path(cfgs.POINT, 'jpg')
-    print(f"save to {file}")
-    mitsuba.util.write_bitmap(file, img)
+            img = mitsuba.render(scene)
+            save_file = get_output_path(cfgs.POINT.output,file.stem, 'jpg')
+            print(f"save to {save_file}")
+            mitsuba.util.write_bitmap(save_file, img)
+
+    
 
 
 if __name__ == '__main__':

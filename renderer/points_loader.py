@@ -1,5 +1,7 @@
 import numpy as np
-
+import os
+from pathlib import Path
+from datetime import datetime
 
 def load_points(filename):
     if filename.suffix == '.npy':
@@ -10,7 +12,7 @@ def load_points(filename):
         raise NotImplementedError('implement your own points loader')
 
 
-def get_output_path(POINT_cfgs, suffix='jpg'):
+def get_output_path_origin(POINT_cfgs, suffix='jpg'):
     from pathlib import Path
     POINT_cfgs.output=Path(POINT_cfgs.output)
     if POINT_cfgs.output.is_dir():
@@ -22,3 +24,10 @@ def get_output_path(POINT_cfgs, suffix='jpg'):
         import os
         output = output.with_name(output.stem + '_' + str(int(100 * os.times().elapsed)) + output.suffix)
     return output.__str__()
+
+
+def get_output_path(output_path, file_name,suffix='jpg'):
+    datetime_str = datetime.now().strftime('%y%m%d_%H%M%S')
+    os.makedirs(output_path,exist_ok=True)
+    save_path=Path(os.path.join(output_path,datetime_str+'_'+file_name+'.' + suffix))
+    return save_path.__str__()

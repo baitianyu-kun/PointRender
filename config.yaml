@@ -1,5 +1,5 @@
 POINT:
-  file: ./input/pc.txt # input point cloud file
+  files: [./input/pc.txt,./input/pc2.txt] # input point cloud file
   xml:  # scene .xml file
   output: ./output/
   format: xyzrgb # or xyz or xyzi
