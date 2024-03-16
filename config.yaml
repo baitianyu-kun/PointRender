@@ -12,7 +12,11 @@ POINT:
   color_map: turbo
   color_normalize: True
 
-  pose: [0, 0, 0, 50, 50, -100] # object pose,XYZ-RPY(deg)
+  # 50, 50, -100
+  # 53, 45, -126
+  # 100, 45, -126
+  # -130, 70, -70
+  pose: [0, 0, 0, -150, 63, -90] # object pose,XYZ-RPY(deg)
   view: [0, 2.5, 1.5, 0, 0, 0] # origin->target
 
   preview: True # fast rendering to preview
