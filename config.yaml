@@ -1,0 +1,33 @@
+POINT:
+  file: ./input/pc.txt # input point cloud file
+  xml:  # scene .xml file
+  output: ./output/
+  format: xyzrgb # or xyz or xyzi
+
+  point_size: 
+  default_point_size: 0.015
+  scale: 0.2 # point cloud scale
+
+  color_by:  # which data field is used to render colors when the point cloud file does not provide rgb field for each point.
+  color_map: turbo
+  color_normalize: True
+
+  pose: [0, 0, 0, 50, 50, -100] # object pose,XYZ-RPY(deg)
+  view: [0, 2.5, 1.5, 0, 0, 0] # origin->target
+
+  preview: True # fast rendering to preview
+
+
+RENDERER:
+  variant: scalar_spectral  # specify the variant of mitsuba
+  sample: 64 # https://mitsuba2.readthedocs.io/en/latest/generated/plugins.html#samplers
+  width: 2560
+  height: 1600
+
+  max_depth: -1 # the length of the chain of scattering
+
+  light_z: 20
+  light_size: 10
+  light_power: 6
+
+  verbose: False
